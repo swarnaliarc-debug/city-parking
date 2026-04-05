@@ -1,0 +1,20 @@
+.google-logo {
+  font-family: 'Product Sans', Arial, sans-serif;
+  letter-spacing: -2px;
+}
+
+.search-bar {
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 1px 6px rgba(32,33,36,0.28) !important;
+}
+
+.search-bar input:focus {
+  outline: none !important;
+}
+
+body {
+  overflow-x: hidden;
+}
