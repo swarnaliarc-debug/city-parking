@@ -18,3 +18,129 @@
 body {
   overflow-x: hidden;
 }
+:root {
+  --bg-main: #d1dbed;
+  --container-bg: #D1DFE1;
+  --header-blue: #b6c3e3;
+  --logo-bg: #1a4d8c;
+  --text-dark: #000;
+}
+
+.app-container {
+  background-color: var(--bg-main);
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.navbar {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-btn span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #3a5ba0;
+  margin: 5px 0;
+}
+
+.brand-logo {
+  background: var(--logo-bg);
+  color: white;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Main Content */
+.content-box {
+  background-color: var(--container-bg);
+  margin: 0 20px 20px;
+  padding: 20px;
+  border-radius: 15px;
+  flex-grow: 1;
+  border: 1px solid #c2cccc;
+  max-width: 576px;
+  align-self: center;
+  margin-top: 40px;
+}
+
+.main-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+/* Accordion Styling */
+.parking-card {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: var(--header-blue);
+  padding: 15px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.arrow-icon {
+  background: #B7C6F4;
+  color: var(--header-blue);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.card-body {
+  background-color: #ccd5e6;
+  padding: 20px;
+  font-size: 12px;
+}
+
+.address-text { font-weight: bold; margin-bottom: 15px; line-height: 1.5; }
+.charges-title { font-weight: bold; margin-bottom: 5px; }
+
+/* Sidebar starts off-screen to the left */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; 
+  width: 250px;
+  height: 100%;
+  background: #B7C6F4;
+  transition: 0.3s; /* This creates the sliding animation */
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* This class is added by React when isMenuOpen is true */
+.sidebar.open {
+  left: 0;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}

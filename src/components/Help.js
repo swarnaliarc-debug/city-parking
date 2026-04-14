@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaBars, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 const Help = () => {
@@ -21,10 +20,7 @@ const Help = () => {
   return (
     <div style={pageStyle}>
     <div className="d-flex justify-content-between align-items-center p-1" style={{ boxShadow: '0 8px 10px -5px rgba(0, 0, 0, 0.2)', background: '#BAD0E5'}}>
-            <FaBars size={30} color="#67737F" style={{padding: '0px 4px' }} />
-            <div>
-              <img src="cityparkinglogo.png" alt="Logo" style={{ width: '44px', padding: '4px 4px' }} />
-            </div>
+           
           </div>
           <div style={{ padding: '16px'}}></div><div className="container">
         <div style={mainCardStyle}>
@@ -56,7 +52,7 @@ const Help = () => {
       </div>
       </div>  
       
-    
+ 
 
   );
 };

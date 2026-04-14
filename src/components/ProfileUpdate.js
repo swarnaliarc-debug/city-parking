@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaBars } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa'; 
 
@@ -15,7 +14,7 @@ const ProfileUpdate = () => {
     border: '1px solid rgba(0,0,0,0.1)',
     padding: '40px 24px',
     maxWidth: '400px',
-    margin: '40px auto 0 auto'
+    margin: '0 auto'
   };
 
   const inputGroupStyle = {
@@ -44,14 +43,7 @@ const inputStyle = {
 
   return (
     <div style={pageStyle}>
-      {/* Navbar */}
-      <div className="d-flex justify-content-between align-items-center p-2" style={{ background: '#BAD0E5', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-        <FaBars size={24} color="#67737F" />
-        <div style={{ background: '#0056b3', borderRadius: '4px', padding: '4px' }}>
-          <img src="cityparkinglogo.png" alt="Logo" style={{ width: '30px' }} />
-        </div>
-      </div>
-
+  
       <div className="container">
         <div style={cardStyle} className="text-center">
           
