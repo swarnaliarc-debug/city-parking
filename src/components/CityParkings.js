@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBars } from 'react-icons/fa'; // Added missing import
+import { FaBars } from 'react-icons/fa'; 
 import '../App.css';
 
 const parkingDetails = [
@@ -44,8 +44,6 @@ function CityParkings() {
   return (
     <div style={pageStyle}> 
       <div className="app-container">
-              
-
         <main className="content-box">
           <h1 className="main-title">City Parkings</h1>
           
@@ -55,12 +53,34 @@ function CityParkings() {
                 <div 
                   className="card-header" 
                   onClick={() => toggleAccordion(item.id)}
-                  style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', background: '#fff', padding: '10px', borderRadius: '5px' }}
+                  style={{ 
+                    cursor: 'pointer', 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', // Added to center icon vertically
+                    background: '#fff', 
+                    padding: '10px', 
+                    borderRadius: '5px' 
+                  }}
                 >
                   {item.title}
-                  <span className="arrow-icon">
-                    {openId === item.id ? '▲' : '▼'}
-                  </span>
+                  
+                  {/* Circular Arrow Icon */}
+                  <div style={{
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50%',
+                    border: '2px solid #67737F',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'transform 0.3s ease',
+                    transform: openId === item.id ? 'rotate(0deg)' : 'rotate(180deg)'
+                  }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#67737F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="18 15 12 9 6 15"></polyline>
+                    </svg>
+                  </div>
                 </div>
                 
                 {openId === item.id && (
