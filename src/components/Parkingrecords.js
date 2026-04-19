@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaCar, FaMotorcycle, FaBars } from 'react-icons/fa';
+import { useAuth } from './AuthContext';
 
 const ParkingRecords = () => {
+  const { user } = useAuth();
+
   const pageStyle = {
     background: '#C8D5F2', // Main background color
     minHeight: '100vh'

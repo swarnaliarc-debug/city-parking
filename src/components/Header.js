@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom'; // Added useLocation
+import { useAuth } from './AuthContext';
 
 const Header = () => {
+  const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation(); // Hook to get current path
 
@@ -64,7 +66,7 @@ const Header = () => {
       <div className="d-flex justify-content-between align-items-center px-3 py-2" 
            style={{ 
              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', 
-             background: '#BAD0E5', 
+             background: '#aac6e1', 
              position: 'relative', 
              zIndex: 900 
            }}>
@@ -74,19 +76,38 @@ const Header = () => {
             <FaBars size={28} color="#67737F" />
           </div>
 
-          <nav className="desktop-nav" style={{ display: 'flex' }}>
+           <style>
+            {`
+              .desktop-link {
+                color: inherit;
+                padding: 8px 12px;
+                border-radius: 4px;
+              }
+              .desktop-link:hover {
+                background-color: rgba(32, 106, 179, 0.1) !important;
+                color: rgb(32, 106, 179);
+              }
+              .active-desktop {
+                color: rgb(32, 106, 179) !important;
+              }
+            `}
+          </style>
+
+          <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center' }}>
             {navItems.map((item) => (
               <Link 
                 key={item.name} 
                 to={item.path} 
                 className={`desktop-link ${isActive(item.path) ? 'active-desktop' : ''}`}
                 style={{
-                    textDecoration: 'none',
-                    fontWeight: 'bold',
-                    fontSize: '14px',
-                    marginLeft: '20px',
-                    textTransform: 'uppercase',
-                    transition: '0.3s'
+                  textDecoration: 'none',
+                  fontWeight: 'bold',
+                  fontSize: '14px',
+                  marginLeft: '20px',
+                  textTransform: 'uppercase',
+                  transition: '0.3s',
+                  display: 'flex',
+                  alignItems: 'center'
                 }}
               >
                 {item.name}
@@ -95,7 +116,21 @@ const Header = () => {
           </nav>
         </div>
 
-        <div>
+        <div style={{display: 'flex', flexDirection: 'row', gap:'8px', alignItems: 'center'}}>
+          <div style={{
+              background: 'rgb(32, 106, 179, 0.1)', 
+              backdropFilter: 'blur(4px)',
+              border: '1px solid rgba(0, 0, 0, 0.1)',
+              borderRadius: '8px', // Pill shape looks cleaner
+              padding: '6px 16px', 
+              height: 'auto',
+              fontSize: '14px',
+              fontWeight: '600',
+              color: '#333',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+              display: 'flex',
+              alignItems: 'center'
+             }}>{ user? user.username: 'Guest'}</div>
           <img src="cityparkinglogo.png" alt="Logo" style={{ width: '44px' }} />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { AuthProvider } from './components/AuthContext'
 
 // Import your components
 import Login from './components/Login';
@@ -25,6 +26,7 @@ const MainLayout = () => (
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         {/* Pages WITHOUT Header (Login/Register) */}
@@ -42,6 +44,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
