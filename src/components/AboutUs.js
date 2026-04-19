@@ -17,7 +17,7 @@ const AboutUs = () => {
 
   const pageStyle = {
     background: '#C8D5F2',
-    height: '100vh',
+    minHeight: '100vh',
     width: '100vw',
     display: 'flex',
     justifyContent: 'center', // Centers horizontally

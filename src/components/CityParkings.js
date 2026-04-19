@@ -34,7 +34,7 @@ function CityParkings() {
 
   const pageStyle = {
     background: '#C8D5F2', 
-    minHeight: '100vh'
+    minHeight: '90vh'
   };
 
   const toggleAccordion = (id) => {

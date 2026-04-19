@@ -11,7 +11,7 @@ const Register = () => {
 
   const pageStyle = {
     backgroundColor: '#CAD7E6',
-    minHeight: '100vh',
+    minHeight: '90vh',
     width: '100vw',
     margin: 0,
     display: 'flex',

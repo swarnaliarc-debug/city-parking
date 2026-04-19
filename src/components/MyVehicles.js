@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { FaCar, FaMotorcycle, FaChevronCircleDown, FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { useAuth } from './AuthContext';
 
+  
 const MyVehicles = () => {
+  const { user } = useAuth();
   const [showForm, setShowForm] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false); // Tracks dropdown state
-  const [vehicles, setVehicles] = useState([
-    { id: 1, type: 'two-wheeler', number: 'WB 06F 5977', model: 'Honda', brand: 'Activa', colour: 'Black' },
-    { id: 2, type: 'four-wheeler', number: 'WB 02F 6376', model: 'Swift', brand: 'Suzuki', colour: 'White' }
-  ]);
+  const [vehicles, setVehicles] = useState(user && user.vehicles ? user.vehicles:[]);
 
   const [formData, setFormData] = useState({
     type: 'two-wheeler',
     model: '',
-    brand: '',
+    brandname: '',
     regNo: '',
-    colour: ''
+    color: ''
   });
 
   // SAVE OR UPDATE LOGIC
@@ -25,19 +25,19 @@ const MyVehicles = () => {
       setVehicles(vehicles.map(v => v.id === formData.id ? {
         ...v,
         type: formData.type,
-        number: formData.regNo,
+        plateNumber: formData.regNo,
         model: formData.model,
-        brand: formData.brand,
-        colour: formData.colour
+        brandname: formData.brandname,
+        color: formData.color
       } : v));
     } else {
       const newVehicle = {
         id: Date.now(),
         type: formData.type,
-        number: formData.regNo,
+        plateNumber: formData.regNo,
         model: formData.model || 'Model',
-        brand: formData.brand || 'Brand',
-        colour: formData.colour || 'Colour'
+        brandname: formData.brandname || 'brandname',
+        color: formData.color || 'color'
       };
       setVehicles([newVehicle, ...vehicles]);
     }
@@ -50,10 +50,10 @@ const MyVehicles = () => {
     setFormData({
       id: vehicle.id,
       type: vehicle.type,
-      brand: vehicle.brand,
+      brandname: vehicle.brandname,
       model: vehicle.model,
-      regNo: vehicle.number,
-      colour: vehicle.colour
+      regNo: vehicle.plateNumber,
+      color: vehicle.color
     });
     setShowForm(true);
   };
@@ -65,7 +65,7 @@ const MyVehicles = () => {
   };
 
   const resetForm = () => {
-    setFormData({ type: 'two-wheeler', model: '', brand: '', regNo: '', colour: '' });
+    setFormData({ type: 'two-wheeler', model: '', brandname: '', regNo: '', color: '' });
   };
 
   // STYLES
@@ -93,9 +93,9 @@ const MyVehicles = () => {
               {v.type === 'two-wheeler' ? <FaMotorcycle size={45} /> : <FaCar size={45} />}
             </div>
             <div style={{ flexGrow: 1 }}>
-              <div style={{ fontSize: '24px', fontWeight: 'bold' }}>{v.number}</div>
-              <div style={{ fontSize: '15px', textTransform: 'uppercase' }}><b>{v.brand}</b> • {v.model}</div>
-              <div style={{ fontSize: '15px', textTransform: 'uppercase' }}>{v.colour}</div>
+              <div style={{ fontSize: '24px', fontWeight: 'bold' }}>{v.plateNumber}</div>
+              <div style={{ fontSize: '15px', textTransform: 'uppercase' }}><b>{v.brandname}</b> • {v.model}</div>
+              <div style={{ fontSize: '15px', textTransform: 'uppercase' }}>{v.color}</div>
             </div>
             <div className="d-flex flex-column gap-3">
               <FaPencilAlt size={18} color="#666" style={{ cursor: 'pointer' }} onClick={() => handleEdit(v)} />
@@ -137,7 +137,7 @@ const MyVehicles = () => {
               </div>
 
               {/* INPUT FIELDS */}
-              {['brand', 'model', 'regNo', 'colour'].map((f) => (
+              {['brand', 'model', 'regNo', 'color'].map((f) => (
                 <div key={f} style={inputContainerStyle}>
                   <input type="text" placeholder={`Vehicle ${f}`} style={inputTextStyle} value={formData[f]} onChange={(e) => setFormData({ ...formData, [f]: e.target.value })} />
                 </div>

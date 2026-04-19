@@ -26,7 +26,7 @@ const ProfileUpdate = () => {
 
   const pageStyle = {
     background: '#C8D5F2',
-    height: '100vh',
+    minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
