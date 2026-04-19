@@ -1,13 +1,58 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom'; // Import the navigation hook
+import { useAuth } from './AuthContext';
+
 
 const Register = () => {
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate(); 
+  const { login } = useAuth(); 
+  const [registerError, setRegisterError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [phno, setPhno] = useState('');
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
-  const handleRegister = () => {
-    // You can add logic here (like saving data) before moving to the next page
-    navigate('/parkingrecords'); 
-  };
+  const userRegister = (e) => {
+  e.preventDefault(); 
+  fetch(apiUrl+'/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+      name: name,
+      age: age,
+      gender: gender,
+      email: email,
+      phone: phno
+    })
+  })
+    .then((response) => {
+      setLoading(false);
+      if (response.ok && response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error('Login Error');
+      }
+    })
+    .then((user) => {
+      login(user);
+      navigate('/myvehicles');
+    })
+    .catch((error) => {
+      console.error('Network or Login error:', error);
+      setLoading(false);
+      setRegisterError(true);
+    });
+};
+  
 
   const pageStyle = {
     backgroundColor: '#CAD7E6',
@@ -87,27 +132,46 @@ const Register = () => {
           
           <div style={sectionBoxStyle}>
             <label style={labelStyle}>Name</label>
-            <input type="text" className="form-control mb-2" placeholder="First name" style={inputStyle} />
-            <input type="text" className="form-control" placeholder="Last name" style={inputStyle} />
+            <input type="text" className="form-control mb-2" placeholder="Display Name" style={inputStyle} 
+            value={name}
+            onChange={(e) => setName(e.target.value)} />
+
+            <input type="text" className="form-control mb-2" placeholder="Username" style={inputStyle}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input type="password" className="form-control" placeholder="Password" style={inputStyle}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
           <div style={sectionBoxStyle}>
             <label style={labelStyle}>Age & Gender</label>
             <div style={{ display: 'flex', gap: '10px' }}>
-              <input type="text" style={{...inputStyle, width: '40%'}} placeholder="Age" />
-              <input type="text" style={{...inputStyle, width: '60%'}} placeholder="Gender" />
+              <input type="text" style={{...inputStyle, width: '40%'}} placeholder="Age" 
+              value={age}
+              onChange={(e) => setAge(e.target.value)} />
+              <input type="text" style={{...inputStyle, width: '60%'}} placeholder="Gender" 
+              value={gender}
+              onChange={(e) => setGender(e.target.value)} />
             </div>
           </div>
 
           <div style={sectionBoxStyle}>
             <label style={labelStyle}>Contact Details</label>
-            <input type="email" className="form-control mb-2" placeholder="Email" style={inputStyle} />
-            <input type="text" className="form-control" placeholder="Ph no" style={inputStyle} />
+            <input type="email" className="form-control mb-2" placeholder="Email" style={inputStyle} 
+            value={email}
+              onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" className="form-control" placeholder="Ph no" style={inputStyle} 
+            value={phno}
+              onChange={(e) => setPhno(e.target.value)} />
           </div>
-
+          { registerError && <div style={{ color : 'red'}}>ERROR: unable to register</div>}
           <button 
             style={buttonStyle} 
-            onClick={handleRegister}
+            onClick={userRegister}
+            disabled={loading}
           >
             Register
           </button>

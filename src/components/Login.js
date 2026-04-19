@@ -9,12 +9,13 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth(); 
-
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+ 
 const userLogin = (e) => {
   e.preventDefault(); 
   setLoginError(false);
   setLoading(true);
-  fetch('http://192.168.1.84:8081/login', {
+  fetch(apiUrl+'/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

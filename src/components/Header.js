@@ -14,7 +14,6 @@ const Header = () => {
     { name: 'Home', path: '/Parkingrecords' },
     { name: 'City Parkings', path: '/CityParkings' },
     { name: 'My Vehicles', path: '/MyVehicles' },
-    { name: 'Profile', path: '/ProfileUpdate' },
     { name: 'About Us', path: '/AboutUs' },
     { name: 'Help', path: '/Help' }
   ];
@@ -117,6 +116,7 @@ const Header = () => {
         </div>
 
         <div style={{display: 'flex', flexDirection: 'row', gap:'8px', alignItems: 'center'}}>
+          <Link to={"/profileupdate"} style={{ textDecoration: 'none' }} >
           <div style={{
               background: 'rgb(32, 106, 179, 0.1)', 
               backdropFilter: 'blur(4px)',
@@ -131,6 +131,7 @@ const Header = () => {
               display: 'flex',
               alignItems: 'center'
              }}>{ user? user.username: 'Guest'}</div>
+          </Link>
           <img src="cityparkinglogo.png" alt="Logo" style={{ width: '44px' }} />
         </div>
       </div>
