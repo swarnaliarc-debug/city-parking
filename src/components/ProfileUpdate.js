@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPencilAlt, FaCheckCircle } from 'react-icons/fa';
+import { useAuth } from './AuthContext';
 
 const ProfileUpdate = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: 'Swarnali', phone: '', email: '' });
+  const [formData, setFormData] = useState({ name: user?.name, phone: user?.phone, email: user?.email });
   const [isSaving, setIsSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
