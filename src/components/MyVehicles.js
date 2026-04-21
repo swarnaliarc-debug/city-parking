@@ -8,7 +8,7 @@ const VehicleType = Object.freeze({
 });
 
 const MyVehicles = () => {
-  const { user } = useAuth();
+  const { user, addVehicle, deleteVehicle } = useAuth();
   const [showForm, setShowForm] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,8 @@ const MyVehicles = () => {
           // Add new item to the top of the list
           setVehicles([savedVehicle, ...vehicles]);
         }
-        
+        addVehicle(savedVehicle);
+        console.log(user);
         setShowForm(false);
         resetForm();
       } else {
@@ -82,6 +83,8 @@ const MyVehicles = () => {
       const response = await fetch(`${apiUrl}/vehicle/${id}`, { method: 'DELETE' });
       if (response.ok) {
         setVehicles(vehicles.filter(v => v.id !== id));
+        deleteVehicle(id);
+        console.log(user);
       } else {
         alert("Failed to delete the vehicle.");
       }
