@@ -12,8 +12,7 @@ const MyVehicles = () => {
   const [showForm, setShowForm] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [vehicles, setVehicles] = useState(user && user.vehicles ? user.vehicles : []);
-
+  const vehicles = user && user.vehicles? user.vehicles : [];
   const [formData, setFormData] = useState({
     type: VehicleType.TWO_WHEELER,
     model: '',
@@ -53,14 +52,6 @@ const MyVehicles = () => {
 
       if (response.ok) {
         const savedVehicle = await response.json();
-        
-        if (formData.id) {
-          // Update the specific item in the list
-          setVehicles(vehicles.map(v => v.id === formData.id ? savedVehicle : v));
-        } else {
-          // Add new item to the top of the list
-          setVehicles([savedVehicle, ...vehicles]);
-        }
         addVehicle(savedVehicle);
         console.log(user);
         setShowForm(false);
@@ -82,7 +73,6 @@ const MyVehicles = () => {
     try {
       const response = await fetch(`${apiUrl}/vehicle/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setVehicles(vehicles.filter(v => v.id !== id));
         deleteVehicle(id);
         console.log(user);
       } else {

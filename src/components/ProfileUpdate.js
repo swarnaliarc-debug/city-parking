@@ -2,9 +2,10 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPencilAlt, FaCheckCircle } from 'react-icons/fa';
 import { useAuth } from './AuthContext';
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
 const ProfileUpdate = () => {
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: user?.name, phone: user?.phone, email: user?.email });
   const [isSaving, setIsSaving] = useState(false);
@@ -20,11 +21,42 @@ const ProfileUpdate = () => {
   const handleSubmit = () => {
     setIsSaving(true);
     setTimeout(() => {
-      setIsSaving(false);
-      setShowSuccess(true);
-      setTimeout(() => navigate('/parkingrecords'), 2000);
-    }, 1500);
+      userUpdate();
+    }, 3000);
   };
+
+  const userUpdate = () => {
+  fetch(apiUrl+'/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...user,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone
+    }),
+  })
+    .then((response) => {
+      setIsSaving(false);
+      if (response.ok && response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error('Login Error');
+      }
+    })
+    .then((user) => {
+      setShowSuccess(true);
+      login(user);
+      setTimeout(() => navigate('/parkingrecords'), 1500);
+      
+    })
+    .catch((error) => {
+      console.error('Network or Login error:', error);
+      setIsSaving(false);
+    });
+};
 
   const pageStyle = {
     background: '#C8D5F2',
