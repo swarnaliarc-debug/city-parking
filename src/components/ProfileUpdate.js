@@ -49,7 +49,7 @@ const ProfileUpdate = () => {
     .then((user) => {
       setShowSuccess(true);
       login(user);
-      setTimeout(() => navigate('/parkingrecords'), 1500);
+      setTimeout(() => navigate('/'), 1500);
       
     })
     .catch((error) => {

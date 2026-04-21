@@ -35,7 +35,7 @@ const userLogin = (e) => {
     })
     .then((user) => {
       login(user);
-      navigate('/parkingrecords');
+      navigate('/');
     })
     .catch((error) => {
       console.error('Network or Login error:', error);

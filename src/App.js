@@ -30,13 +30,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Pages WITHOUT Header (Login/Register) */}
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         {/* Pages WITH Header (Wrapped in MainLayout) */}
         <Route element={<MainLayout />}>
           <Route path="/cityparkings" element={<CityParkings />} />
-          <Route path="/parkingrecords" element={<ParkingRecords />} />
+          <Route path="/" element={<ParkingRecords />} />
           <Route path="/myvehicles" element={<MyVehicles />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/help" element={<Help />} />

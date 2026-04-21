@@ -11,7 +11,7 @@ const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navItems = [
-    { name: 'Home', path: '/Parkingrecords' },
+    { name: 'Home', path: '/' },
     { name: 'City Parkings', path: '/CityParkings' },
     { name: 'My Vehicles', path: '/MyVehicles' },
     { name: 'About Us', path: '/AboutUs' },
