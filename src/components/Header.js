@@ -161,11 +161,11 @@ const Header = () => {
             border-left: 4px solid #206ab3;
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 756px) {
           .desktop-nav { display: none !important; }
           .mobile-hamburger { display: block !important; }
         }
-        @media (min-width: 721px) {
+        @media (min-width: 757px) {
           .mobile-sidebar, .mobile-hamburger { display: none !important; }
         }
       `}</style>
