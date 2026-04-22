@@ -58,8 +58,9 @@ const AboutUs = () => {
           <h3 style={{ fontWeight: 'bold', marginBottom: '15px' }}>ABOUT US</h3>
           
           <p style={{ color: '#444', margin: 0 }}>
-            We are dedicated to providing seamless urban parking solutions. 
-            Our mission is to make city navigation stress-free for everyone.
+            We are a city parking platform focused on making parking easier, faster, and more efficient. 
+            Using AI-based automatic number plate recognition, our system detects vehicle entry and exit and updates the user app in real time. 
+            Our mission is to modernize city parking through automation, accuracy, and a better user experience.
           </p>
         </div>
       </div>

@@ -7,25 +7,25 @@ const parkingDetails = [
     id: 1,
     title: "City Center 2, Rajarhat",
     address: "Plot No 2D/5, Near Chinar Park/Post Office, Hatiara, Rajarhat New Town, Kolkata - 700157",
-    charges: "Four-wheelers: ₹20/hr, Two-wheelers: ₹10/hr",
+    charges: "Four-wheelers: ₹30/hr, Two-wheelers: ₹15/hr",
   },
   {
     id: 2,
     title: "City Center 1, SaltLake",
     address: "No. 25, Block DC, Sector 1, Salt Lake City, Kolkata - 700064",
-    charges: "Standard mall parking rates apply."
+    charges: "Four-wheelers: ₹30/hr, Two-wheelers: ₹15/hr."
   },
   {
     id: 3,
     title: "Acropolis Mall, Kasba",
     address: "1858, Rajdanga Main Rd, Kasba, Kolkata - 700107",
-    charges: "Parking charges vary by duration."
+    charges: "Four-wheelers: ₹30/hr, Two-wheelers: ₹15/hr."
   },
   {
     id: 4,
     title: "Mani Square Mall, E M Bypass",
     address: "164/1, Manicktala Main Rd, EM Bypass, Kolkata - 700054",
-    charges: "Paid parking available 24/7."
+    charges: "Four-wheelers: ₹30/hr, Two-wheelers: ₹15/hr."
   }
 ];
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { AuthProvider } from './components/AuthContext'
+import { AuthProvider } from './components/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute'; // Ensure this file exists
 
 // Import your components
 import Login from './components/Login';
@@ -19,7 +20,7 @@ const MainLayout = () => (
   <>
     <Header />
     <main>
-      <Outlet /> {/* This is where the page content will swap out */}
+      <Outlet />
     </main>
   </>
 );
@@ -27,23 +28,29 @@ const MainLayout = () => (
 function App() {
   return (
     <AuthProvider>
-    <BrowserRouter>
-      <Routes>
-        {/* Pages WITHOUT Header (Login/Register) */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes (No Header) */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Pages WITH Header (Wrapped in MainLayout) */}
-        <Route element={<MainLayout />}>
-          <Route path="/cityparkings" element={<CityParkings />} />
-          <Route path="/" element={<ParkingRecords />} />
-          <Route path="/myvehicles" element={<MyVehicles />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/ProfileUpdate" element={<ProfileUpdate />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* Protected Layout: Only logged-in users can see these */}
+          <Route 
+            element={
+              <ProtectedRoute>
+                <MainLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="/" element={<ParkingRecords />} />
+            <Route path="/cityparkings" element={<CityParkings />} />
+            <Route path="/myvehicles" element={<MyVehicles />} />
+            <Route path="/ProfileUpdate" element={<ProfileUpdate />} />
+            <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/help" element={<Help />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
