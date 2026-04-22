@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa'; 
 import '../App.css';
 
-const parkingDetails = [
+ export const parkingDetails = [
   {
     id: 1,
     title: "City Center 2, Rajarhat",

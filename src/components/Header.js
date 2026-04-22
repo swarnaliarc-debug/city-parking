@@ -20,7 +20,7 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'City Parkings', path: '/CityParkings' },
+    { name: 'Parkings', path: '/CityParkings' },
     { name: 'My Vehicles', path: '/MyVehicles' },
     { name: 'About Us', path: '/AboutUs' },
     { name: 'Help', path: '/Help' }

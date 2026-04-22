@@ -116,7 +116,7 @@ const MyVehicles = () => {
   return (
     <div style={pageStyle}>
       <div style={{ padding: '16px' }}>
-        <h3 className="text-center fw-bold mb-4" style={{ color: '#30119C' }}>My Vehicles</h3>
+        <h3 className="text-center fw-bold mb-4" >My Vehicles</h3>
 
         {vehicles.length === 0 && !loading && (
           <p className="text-center text-muted">No vehicles added yet.</p>

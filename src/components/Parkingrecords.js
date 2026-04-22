@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { FaCar, FaMotorcycle, FaBars } from 'react-icons/fa';
 import { useAuth } from './AuthContext';
+import {parkingDetails } from './CityParkings';
 
 const ParkingRecords = () => {
   const { user } = useAuth();
@@ -75,7 +76,7 @@ const ParkingRecords = () => {
 
         {/* 2. Detailed History Cards */}
         <div style={detailCardStyle}>
-          <small style={{ position: 'absolute', right: '15px', top: '10px', opacity: 0.6 }}>01.03.2026</small>
+          <small style={{ float: 'right', right: '15px', top: '10px', opacity: 1, fontWeight: 'bold', color: '#000' }}>City Center 2</small>
           <div className="d-flex align-items-center mb-2">
             <FaMotorcycle className="me-3" size={20} />
             <span className="fw-bold">WB 06F 5977</span>
@@ -90,7 +91,7 @@ const ParkingRecords = () => {
         </div>
 
         <div style={detailCardStyle}>
-          <small style={{ position: 'absolute', right: '15px', top: '10px', opacity: 0.6 }}>22.02.2026</small>
+          <small style={{ float: 'right', right: '15px', top: '10px', opacity: 1, fontWeight: 'bold', color: '#000' }}>City Center 2</small>
           <div className="d-flex align-items-center mb-2">
             <FaCar className="me-3" size={20} />
             <span className="fw-bold">WB 02F 6376</span>
