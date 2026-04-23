@@ -133,7 +133,7 @@ const MyVehicles = () => {
               {v.type === VehicleType.TWO_WHEELER ? <FaMotorcycle size={40} color="#30119C" /> : <FaCar size={40} color="#30119C" />}
             </div>
             <div style={{ flexGrow: 1 }}>
-              <div style={{ fontSize: '20px', fontWeight: 'bold', letterSpacing: '1px' }}>{v.plateNumber}</div>
+              <div style={{ fontSize: '20px', textTransform: 'uppercase',fontWeight: 'bold', letterSpacing: '1px' }}>{v.plateNumber}</div>
               <div style={{ fontSize: '14px', textTransform: 'uppercase', color: '#555' }}>
                 <b>{v.brandname}</b> • {v.model}
               </div>
