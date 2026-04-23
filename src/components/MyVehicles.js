@@ -12,52 +12,58 @@ const MyVehicles = () => {
   const [showForm, setShowForm] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const vehicles = user && user.vehicles? user.vehicles : [];
+  
+  const vehicles = user && user.vehicles ? user.vehicles : [];
+  
   const [formData, setFormData] = useState({
     type: VehicleType.TWO_WHEELER,
     model: '',
     brandname: '',
-    regNo: '',
+    regNo: '', // This is what we use in the form
     color: ''
   });
 
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
-  // SAVE OR UPDATE LOGIC
   const handleSave = async () => {
-    if (!formData.regNo) return alert("Please enter Registration Number");
-    
+    // 1. Basic validation
+    if (!formData.regNo) {
+      return alert("Please enter the Registration Number");
+    }
+
     setLoading(true);
 
+    // 2. Prepare the payload to match your Java Entity names
     const vehiclePayload = {
-      id: formData && formData.id?formData.id: null,
+      id: formData.id ? formData.id : null,
       type: formData.type,
-      plateNumber: formData.regNo,
+      plateNumber: formData.regNo, // Mapping regNo to plateNumber for Java
       model: formData.model,
       brandname: formData.brandname,
-      color: formData.color,
-      userId: user?.id
+      color: formData.color
     };
 
     try {
-      // If formData has an ID, it's an update (PUT), otherwise it's a create (POST)
       const url = `${apiUrl}/vehicle?userid=${user.id}`;
-      const method = 'POST';
-
+      
       const response = await fetch(url, {
-        method: method,
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(vehiclePayload),
       });
 
       if (response.ok) {
         const savedVehicle = await response.json();
-        addVehicle(savedVehicle);
-        console.log(user);
+        
+        // If it's a new vehicle, add to list; otherwise, you might need an updateVehicle in AuthContext
+        addVehicle(savedVehicle); 
+        
+        alert("Vehicle saved successfully!");
         setShowForm(false);
         resetForm();
       } else {
-        alert("Server error. Please try again.");
+        // This catches the unique constraint error from Java
+        alert("Error: This Registration Number is already in use.");
       }
     } catch (error) {
       console.error("Connection error:", error);
@@ -74,7 +80,6 @@ const MyVehicles = () => {
       const response = await fetch(`${apiUrl}/vehicle/${id}`, { method: 'DELETE' });
       if (response.ok) {
         deleteVehicle(id);
-        console.log(user);
       } else {
         alert("Failed to delete the vehicle.");
       }
@@ -89,7 +94,7 @@ const MyVehicles = () => {
       type: vehicle.type,
       brandname: vehicle.brandname,
       model: vehicle.model,
-      regNo: vehicle.plateNumber, // Mapping plateNumber back to regNo for the form
+      regNo: vehicle.plateNumber, 
       color: vehicle.color
     });
     setShowForm(true);
@@ -99,7 +104,7 @@ const MyVehicles = () => {
     setFormData({ type: VehicleType.TWO_WHEELER, model: '', brandname: '', regNo: '', color: '' });
   };
 
-  // STYLES
+  // ... (Styles and Return remain the same as your code)
   const pageStyle = { background: '#C8D5F2', minHeight: '100vh', paddingBottom: '40px' };
   const overlayStyle = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 };
   const mainCardStyle = { background: '#E8EDF9', borderRadius: '20px', padding: '30px 24px', maxWidth: '400px', width: '90%', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' };
@@ -146,8 +151,9 @@ const MyVehicles = () => {
             className="btn btn-primary shadow-sm" 
             style={{ backgroundColor: '#0087D5', border: 'none', borderRadius: '10px', padding: '12px 60px', fontWeight: 'bold' }} 
             onClick={() => { resetForm(); setShowForm(true); }}
+            disabled={loading}
           >
-            + Add Vehicle
+            {loading ? 'Saving...' : '+ Add Vehicle'}
           </button>
         </div>
 
@@ -179,37 +185,50 @@ const MyVehicles = () => {
                 </div>
               </div>
 
-              {[
-                { label: 'Brand Name (e.g. Honda)', key: 'brandname' },
-                { label: 'Model (e.g. Civic)', key: 'model' },
-                { label: 'Registration Number', key: 'regNo' },
-                { label: 'Color', key: 'color' }
-              ].map((field) => (
-                <div key={field.key} style={inputContainerStyle}>
-                  <input 
-                    type="text" 
-                    placeholder={field.label} 
-                    style={inputTextStyle} 
-                    value={formData[field.key]} 
-                    onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })} 
-                  />
-                </div>
-              ))}
+              {/* BRAND INPUT */}
+              <div style={inputContainerStyle}>
+                <input 
+                  style={inputTextStyle} 
+                  placeholder="Brand Name" 
+                  value={formData.brandname} 
+                  onChange={(e) => setFormData({...formData, brandname: e.target.value})} 
+                />
+              </div>
 
-              <div className="text-center mt-4">
-                <button 
-                  className="btn w-100 mb-2" 
-                  style={{ color: '#fff', background: '#30119C', borderRadius: '10px', padding: '12px', fontWeight: 'bold' }} 
-                  onClick={handleSave}
-                  disabled={loading}
-                >
-                  {loading ? 'SAVING...' : (formData.id ? 'UPDATE' : 'SUBMIT')}
-                </button>
-                <button 
-                  className="btn btn-link text-muted text-decoration-none w-100" 
-                  onClick={() => { setShowForm(false); resetForm(); }}
-                >
-                  Cancel
+              {/* MODEL INPUT */}
+              <div style={inputContainerStyle}>
+                <input 
+                  style={inputTextStyle} 
+                  placeholder="Model Name" 
+                  value={formData.model} 
+                  onChange={(e) => setFormData({...formData, model: e.target.value})} 
+                />
+              </div>
+
+              {/* REGISTRATION NUMBER INPUT */}
+              <div style={inputContainerStyle}>
+                <input 
+                  style={inputTextStyle} 
+                  placeholder="Registration Number" 
+                  value={formData.regNo} 
+                  onChange={(e) => setFormData({...formData, regNo: e.target.value})} 
+                />
+              </div>
+
+              {/* COLOR INPUT */}
+              <div style={inputContainerStyle}>
+                <input 
+                  style={inputTextStyle} 
+                  placeholder="Vehicle Color" 
+                  value={formData.color} 
+                  onChange={(e) => setFormData({...formData, color: e.target.value})} 
+                />
+              </div>
+
+              <div className="d-flex gap-2">
+                <button className="btn btn-secondary w-100" onClick={() => setShowForm(false)}>Cancel</button>
+                <button className="btn btn-primary w-100" onClick={handleSave} disabled={loading}>
+                   {loading ? 'Saving...' : 'Save'}
                 </button>
               </div>
             </div>
