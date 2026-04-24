@@ -38,14 +38,16 @@ const ParkingRecords = () => {
 
    const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
-  useEffect(() => {
-    if (!user) return;
-    const fetchData = async () => {
-      try {
-        const [recordsRes, vehiclesRes] = await Promise.all([
-          fetch(apiUrl+'/parking-history'),
-          fetch(`${apiUrl}/uservehicles/${user.id}`)
-        ]);
+    useEffect(() => {
+      if (!user) return;
+      const fetchData = async () => {
+        try {
+          const [recordsRes, vehiclesRes] = await Promise.all([
+            // Change this line to include the user.id
+            fetch(`${apiUrl}/parking-history/${user.id}`), 
+            fetch(`${apiUrl}/uservehicles/${user.id}`)
+          ]);
+
         const recordsData = await recordsRes.json();
         const vehiclesData = await vehiclesRes.json();
         setRecords(recordsData);

@@ -109,7 +109,7 @@ const MyVehicles = () => {
   const overlayStyle = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 };
   const mainCardStyle = { background: '#E8EDF9', borderRadius: '20px', padding: '30px 24px', maxWidth: '400px', width: '90%', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' };
   const inputContainerStyle = { background: '#BCC9E8', borderRadius: '15px', padding: '12px 18px', marginBottom: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' };
-  const inputTextStyle = { background: 'transparent', border: 'none', width: '100%', fontWeight: 'bold', fontSize: '14px', outline: 'none', color: '#333' };
+  const inputTextStyle = { background: 'transparent', border: 'none', width: '100%', fontWeight: 'bold', fontSize: '14px', outline: 'none', color: '#333', textTransform: 'uppercase' };
   
   const detailCardStyle = (isBlurred) => ({ 
     background: 'transparent', border: '1.5px solid #000', borderRadius: '20px', padding: '20px 25px', margin: '16px auto', maxWidth: '450px', display: 'flex', alignItems: 'center', 
@@ -211,7 +211,7 @@ const MyVehicles = () => {
                   style={inputTextStyle} 
                   placeholder="Registration Number" 
                   value={formData.regNo} 
-                  onChange={(e) => setFormData({...formData, regNo: e.target.value})} 
+                  onChange={(e) => setFormData({...formData, regNo: e.target.value.toUpperCase()})} 
                 />
               </div>
 
