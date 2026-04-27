@@ -149,13 +149,20 @@ const Register = () => {
           <div style={sectionBoxStyle}>
             <label style={labelStyle}>Age & Gender</label>
             <div style={{ display: 'flex', gap: '10px' }}>
-              <input type="text" style={{...inputStyle, width: '40%'}} placeholder="Age" 
+              <input type="number" style={{...inputStyle, width: '40%'}} placeholder="Age" 
               value={age}
               onChange={(e) => setAge(e.target.value)} />
-              <input type="text" style={{...inputStyle, width: '60%'}} placeholder="Gender" 
-              value={gender}
-              onChange={(e) => setGender(e.target.value)} />
-            </div>
+               <select 
+                style={{...inputStyle, width: '60%', appearance: 'none'}} 
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option value="" disabled>Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+              </select>
+          </div>
           </div>
 
           <div style={sectionBoxStyle}>
